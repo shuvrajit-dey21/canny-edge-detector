@@ -1,9 +1,3 @@
-# Subject :- Computer vision 
-# Assignment Topic :- To implement Canny Edge detection Algorithm 
-# Name :- Shuvrajit Dey
-# ID No:- 22IUT0010170
-
-
 # Import necessary libraries for GUI and image processing
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
