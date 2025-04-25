@@ -11,7 +11,6 @@
 8. [Examples](#examples)
 9. [Troubleshooting](#troubleshooting)
 10. [Contributing](#contributing)
-11. [License](#license)
 
 ## Project Overview
 This project implements the Canny edge detection algorithm, a multi-stage process to detect a wide range of edges in images. The Canny edge detector is widely used in computer vision applications for feature detection and feature extraction.
