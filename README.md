@@ -1,155 +1,120 @@
-# Canny Edge Detection Algorithm Implementation
+# Canny Edge Detector - Computer Vision Project
 
-## Installation
-```bash
-# Install dependencies
-pip install -r requirements.txt
-```
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Prerequisites](#prerequisites)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Step-by-Step Guide](#step-by-step-guide)
+7. [Parameters](#parameters)
+8. [Examples](#examples)
+9. [Troubleshooting](#troubleshooting)
+10. [Contributing](#contributing)
+11. [License](#license)
 
-## Usage
-```python
-python canny_edge_detector.py
-```
-1. Click 'Choose Image' to select an image
-2. Click 'Process' to run edge detection
-3. Use 'Reset' to return to default image
-4. Click ℹ️ button for algorithm details
-
-## Features
-
-### Image Handling
-- Supports various image formats (JPG, JPEG, PNG, BMP, GIF)
-- Automatically converts non-RGB images to RGB format
-- Preserves image quality during processing
-
-### Visualization
-- Optimized display dimensions (400x450 pixels) for better visibility
-- Maintains aspect ratio during image scaling
-- Centers images in the display area
-- Smooth scrolling for larger content
-
-### Image Size Handling
-- Large images are automatically scaled down while preserving aspect ratio
-- Small images maintain original dimensions
-- No image cropping or distortion
-- Gray background for partially filled frames
-
-### Error Handling
-- Graceful handling of invalid image formats
-- Clear error messages for failed operations
-- Status updates during processing
-
-### User Interface
-- Clean and intuitive layout
-- Responsive controls
-- Real-time progress tracking
-- Informative status messages
+## Project Overview
+This project implements the Canny edge detection algorithm, a multi-stage process to detect a wide range of edges in images. The Canny edge detector is widely used in computer vision applications for feature detection and feature extraction.
 
 ## Features
+- Complete implementation of the Canny edge detection algorithm
+- Customizable parameters for different edge detection needs
+- Support for various image formats
+- Visualization of intermediate processing steps
+- Optimized for performance
 
-### Core Features
-- Complete manual implementation of the Canny Edge Detection algorithm
-- User-friendly GUI built with Tkinter
-- Support for various image formats (PNG, JPG, JPEG, BMP, GIF, TIFF)
-- Real-time image processing and display
-- Side-by-side view of original and processed images
-
-### UI Features
-- Modern, responsive interface with smooth animations
-- Interactive algorithm information window with step-by-step explanations
-- Progress bar with percentage indicator during processing
-- Smooth scrolling and fade effects
-- Hover effects on interactive elements
-- Reset functionality to return to default image
-
-## Requirements
-
+## Prerequisites
+Before you begin, ensure you have met the following requirements:
 - Python 3.7 or higher
-- NumPy (>= 1.21.0)
-- Pillow (>= 9.0.0)
+- pip package manager
+- Basic understanding of image processing concepts
 
 ## Installation
+Follow these steps to set up the project:
 
-1. Clone this repository or download the source code
-2. Install the required dependencies:
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/computer-vision.git
+cd computer-vision
+```
+
+2. Create and activate a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+3. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
 ## Usage
-
-1. Run the application:
+To run the Canny edge detector on an image:
 ```bash
-python canny_edge_detector.py
+python canny_edge_detector.py --input input_image.jpg --output output_image.png
 ```
 
-2. The application will start with a default test image (black and white squares)
-3. Use the following controls:
-   - Click "Choose Image" to select your own image
-   - Click "Process" to apply the Canny Edge Detection algorithm
-   - Click "Reset" to return to the default test image
-   - Click "ℹ️ Algorithm Info" to learn about the algorithm steps
+## Step-by-Step Guide
+The Canny edge detection process consists of the following steps:
 
-## Project Structure
+1. **Noise Reduction**
+   - The image is smoothed using a Gaussian filter to reduce noise
 
-- `canny_edge_detector.py`: Main application file containing:
-  - `CannyEdgeDetector`: Main application class with UI implementation
-  - `AlgorithmInfoWindow`: Interactive information window class
-- `requirements.txt`: Project dependencies
+2. **Gradient Calculation**
+   - The intensity gradients of the image are calculated
+   - Both magnitude and direction of gradients are computed
 
-## Algorithm Implementation
+3. **Non-Maximum Suppression**
+   - Only local maxima in gradient directions are kept
+   - This thins the edges
 
-The Canny Edge Detection algorithm is implemented in the following steps:
+4. **Double Thresholding**
+   - Potential edges are determined by two threshold values
+   - Strong edges, weak edges, and non-edges are classified
 
-1. **Grayscale Conversion**
-   - Converts RGB to grayscale using weighted sum:
-   - Formula: gray = 0.2989 * R + 0.5870 * G + 0.1140 * B
+5. **Edge Tracking by Hysteresis**
+   - Weak edges are either kept or discarded based on connectivity
+   - Only edges connected to strong edges are preserved
 
-2. **Gaussian Blur**
-   - Reduces noise while preserving edges
-   - Uses 5x5 Gaussian kernel with formula: G(x,y) = (1/2πσ²)e^(-(x²+y²)/2σ²)
+## Parameters
+The script accepts the following parameters:
+- `--input`: Path to input image (required)
+- `--output`: Path to save output image (required)
+- `--low_threshold`: Low threshold for hysteresis (default: 50)
+- `--high_threshold`: High threshold for hysteresis (default: 150)
+- `--sigma`: Sigma value for Gaussian blur (default: 1.4)
+- `--kernel_size`: Size of Gaussian kernel (default: 5)
 
-3. **Gradient Calculation**
-   - Applies Sobel operators in x and y directions
-   - Calculates gradient magnitude: √(Gx² + Gy²)
-   - Determines gradient direction: θ = arctan(Gy/Gx)
+## Examples
+1. Basic edge detection:
+```bash
+python canny_edge_detector.py --input sample.jpg --output edges.png
+```
 
-4. **Non-Maximum Suppression**
-   - Thins edges by suppressing non-maximum values
-   - Rounds gradient direction to nearest 45°
-   - Compares with pixels in gradient direction
+2. Custom threshold values:
+```bash
+python canny_edge_detector.py --input sample.jpg --output edges.png --low_threshold 30 --high_threshold 100
+```
 
-5. **Double Thresholding**
-   - Identifies strong edges (high threshold: 0.15 * max)
-   - Identifies weak edges (low threshold: 0.05 * max)
-   - Categorizes pixels as strong, weak, or non-edges
+3. Different blur settings:
+```bash
+python canny_edge_detector.py --input sample.jpg --output edges.png --sigma 2.0 --kernel_size 7
+```
 
-6. **Edge Tracking by Hysteresis**
-   - Starts with strong edges
-   - Recursively adds connected weak edges
-   - Removes isolated weak edges
+## Troubleshooting
+- **Image not found**: Ensure the input path is correct
+- **Blurry output**: Try adjusting the sigma and kernel_size parameters
+- **Too many/too few edges**: Adjust the threshold values
+- **Memory issues**: Reduce image size before processing
 
-## UI Design
-
-The application features a modern, responsive interface with:
-
-- Centered title with custom styling
-- Organized button layout with consistent spacing
-- Progress tracking during image processing
-- Smooth animations and transitions
-- Interactive hover effects
-- Scrollable content for larger images
-- Side-by-side image comparison
-
-## Implementation Details
-
-- All image processing operations are implemented manually without using OpenCV
-- Uses NumPy for efficient mathematical operations
-- Uses Pillow (PIL) for basic image loading and display
-- Implements custom UI components with Tkinter
-- Features smooth animations and transitions
-- Includes detailed algorithm explanations
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a Pull Request
 
 ## License
-
-This project is open-source and available under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
