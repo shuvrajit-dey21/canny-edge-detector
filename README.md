@@ -11,6 +11,7 @@
 8. [Examples](#examples)
 9. [Troubleshooting](#troubleshooting)
 10. [Contributing](#contributing)
+11. [License](#license)
 
 ## Project Overview
 This project implements the Canny edge detection algorithm, a multi-stage process to detect a wide range of edges in images. The Canny edge detector is widely used in computer vision applications for feature detection and feature extraction.
@@ -114,3 +115,6 @@ Contributions are welcome! Please follow these steps:
 3. Commit your changes (`git commit -m 'Add new feature'`)
 4. Push to the branch (`git push origin feature-branch`)
 5. Open a Pull Request
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
