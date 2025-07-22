@@ -35,7 +35,7 @@ Follow these steps to set up the project:
 1. Clone the repository:
 ```bash
 git clone https://github.com/shuvrajit-dey21/canny-edge-detector.git
-cd computer-vision
+cd canny-edge-detector
 ```
 
 2. Create and activate a virtual environment (recommended):
